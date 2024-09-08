@@ -1,4 +1,3 @@
-// Loading Animation
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form");
     const loaderContainer = document.getElementById("loader-container");
@@ -23,20 +22,31 @@ document.addEventListener("DOMContentLoaded", function() {
         // Show loader
         loaderContainer.style.visibility = "visible"; 
 
-        // Simulate generating response (replace this with actual AI response)
-        setTimeout(function() {
+        // Send the user's message to the server
+        fetch("/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ "prompt": userMessage })
+        })
+        .then(response => response.json())
+        .then(data => {
             loaderContainer.style.visibility = "hidden"; // Hide loader
-            const assistantMessage = "Here is your answer to that!";
             
-            // Show the assistant's message in chat
+            // Update chat history with the server's response
             const assistantEntry = document.createElement('div');
             assistantEntry.classList.add('chat-entry', 'assistant');
-            assistantEntry.innerHTML = `<div class="bubble"><strong>Homework Tutor:</strong><p>${assistantMessage}</p></div>`;
+            assistantEntry.innerHTML = `<div class="bubble"><strong>Homework Tutor:</strong><p>${data.response}</p></div>`;
             chatHistory.appendChild(assistantEntry);
             
             // Scroll to the bottom of the chat
             chatHistory.scrollTop = chatHistory.scrollHeight;
-        }, 3000);  // Simulate delay
+        })
+        .catch(error => {
+            loaderContainer.style.visibility = "hidden"; // Hide loader in case of error
+            console.error('Error:', error);
+        });
     });
 
     // Clear button
