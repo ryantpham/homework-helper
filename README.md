@@ -1,5 +1,3 @@
----
-
 **Project Title: Homework Assistant Chatbot**
 
 **Overview:**
@@ -26,5 +24,3 @@ I developed a Homework Assistant Chatbot that utilizes Python for the backend, l
 - **Flask**: Web framework for routing and serving the application
 - **OpenAI API**: Provides intelligent responses based on user input
 - **Vercel**: Deployment platform for hosting the web application
-
----
