@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Tutor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Homework Tutor</h1>
+        <div id="chat-history" class="chat-history">
+            <!-- Chat messages will appear here -->
+            {% for entry in chat_history %}
+                <div class="chat-entry {{ entry.role }}">
+                    <div class="bubble">
+                        <strong>{{ entry.role | replace("_", " ") | capitalize }}:</strong>
+                        <p>{{ entry.text }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST">
+            <div class="prompt-box">
+                <textarea name="prompt" id="prompt-input" placeholder="Type your question here..."></textarea>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="get-response-button">Send</button>
+                <button type="button" class="clear-button" id="clear-button">Clear</button>
+            </div>
+        </form>
+
+        <!-- Loader container (hidden by default) -->
+        <div id="loader-container" class="loader-container">
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <p>Generating response...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

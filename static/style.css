@@ -1,0 +1,48 @@
+/* Chat styling */
+.chat-history {
+    border: 1px solid #ccc;
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.chat-entry {
+    margin-bottom: 10px;
+}
+
+.bubble {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+.user .bubble {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+}
+
+.assistant .bubble {
+    background-color: #f1f1f1;
+}
+
+#loader-container {
+    visibility: hidden;
+    text-align: center;
+}
+
+.dots .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+    animation: blink 1.2s infinite both;
+    margin-right: 4px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
