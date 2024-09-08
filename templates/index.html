@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Tutor</title>
+    <title>Homework Assistant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Homework Tutor</h1>
+        <h1>Homework Assistant</h1>
         <div id="chat-history" class="chat-history">
             <!-- Chat messages will appear here -->
             {% for entry in chat_history %}
@@ -21,7 +21,7 @@
             {% endfor %}
         </div>
 
-        <form method="POST">
+        <form method="POST" class="chat-form">
             <div class="prompt-box">
                 <textarea name="prompt" id="prompt-input" placeholder="Type your question here..."></textarea>
             </div>
