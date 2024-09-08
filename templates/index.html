@@ -6,6 +6,19 @@
     <title>Homework Assistant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<style>
+    /* Footer Styling */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1e2e; /* Matches body background for consistency */
+    color: #e0e0e0; /* Light gray text color for contrast */
+    font-size: 14px;
+    border-top: 1px solid #333; /* Subtle top border for separation */
+    margin-top: 20px; /* Space above the footer */
+}
+
+</style>
 <body>
     <div class="container">
         <h1>Homework Assistant</h1>
@@ -44,4 +57,9 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
+<footer class="footer">
+    <p>&copy; 2024 Ryan Pham. All rights reserved.</p>
+</footer>
+
 </html>
