@@ -1,5 +1,5 @@
 **Project Title: Homework Assistant Chatbot**
-https://homework-helper-steel.vercel.app/ 
+- https://homework-helper-steel.vercel.app/  
 **Overview:**
 
 I developed a Homework Assistant Chatbot that utilizes Python for the backend, leveraging OpenAI's API to provide intelligent responses to user queries. The application is built using Flask, a micro web framework for Python, which handles the web server functionality and routes for the chat interface. For deployment, I used Vercel, a platform that simplifies the process of deploying web applications.
