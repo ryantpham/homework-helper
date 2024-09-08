@@ -10,14 +10,14 @@
         "use": "@vercel/static"
       },
       {
-        "src": "template/index.html",
+        "src": "templates/index.html",
         "use": "@vercel/static"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "template/index.html"
+        "dest": "templates/index.html"
       }
     ]
   }
