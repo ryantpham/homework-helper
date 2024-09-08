@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, jsonify
 import openai
 import os
 from dotenv import load_dotenv
@@ -43,8 +43,12 @@ def index():
     if request.method == "POST":
         user_prompt = request.form["prompt"]
         response = get_response(user_prompt)
-        return response  # Return only the response text
+        
+        # Return JSON response with the assistant's message
+        return jsonify({'response': response})
     
-    # On GET request, clear chat history
-    session.pop('chat_history', None)
-    return render_template("index.html", chat_history=[])
+    # On GET request, render the HTML page
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
