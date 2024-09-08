@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import openai
 import os
 from dotenv import load_dotenv
+from urllib.parse import quote as url_quote  # Importing quote from urllib.parse
 
 # Load environment variables from .env file
 load_dotenv()
