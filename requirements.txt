@@ -1,4 +1,3 @@
-Flask==2.2.5
-Werkzeug==2.2.5  # Adjust this to a compatible version
+Flask==2.2.2
 openai==0.28.0
 python-dotenv==1.0.1
