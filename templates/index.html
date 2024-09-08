@@ -18,6 +18,204 @@
     margin-top: 20px; /* Space above the footer */
 }
 
+/* Mobile-First CSS */
+body{
+    background-color: #1e1e2e;
+}
+/* Container for the entire chat */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2e;
+    color: #c9d1d9; /* Light text color */
+}
+
+/* Heading */
+h1 {
+    font-size: 36px; /* Large font size for emphasis */
+    margin-bottom: 20px;
+    color: #f5f5f5; /* Very light gray for good contrast */
+    text-align: center;
+    background: linear-gradient(45deg, #a1c4fd, #c2e9fb); /* Light blue gradient for a fresh look */
+    -webkit-background-clip: text; /* Clips the gradient to text */
+    -webkit-text-fill-color: transparent; /* Makes the text color transparent to show the gradient */
+    font-weight: 700; /* Bold text */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle, bright shadow for depth */
+    letter-spacing: 1px; /* Spacing between letters */
+    border-bottom: 3px solid #c2e9fb; /* Bottom border in a matching light color */
+    padding-bottom: 10px; /* Padding for the bottom border */
+}
+
+/* Glowing text animation (optional) */
+@keyframes glowing {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+    to {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+}
+
+h1.glow {
+    animation: glowing 1.5s infinite alternate; /* Adds a subtle glowing effect */
+}
+
+
+/* Chat History */
+.chat-history {
+    width: 90vw;
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #2d2d44; /* Dark border */
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #2e3440; /* Darker background for chat area */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Softer shadow */
+}
+
+.chat-entry {
+    margin-bottom: 10px;
+}
+
+.chat-entry .bubble {
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 80%;
+    min-width: 30%;
+}
+
+.chat-entry.user .bubble {
+    background-color: #007bff; /* Bright blue for user messages */
+    color: white;
+    margin-left: auto;
+}
+
+.chat-entry.assistant .bubble {
+    background-color: #44475a; /* Muted dark color for assistant messages */
+    color: #c9d1d9; /* Light text */
+}
+
+/* Prompt box */
+.prompt-box {
+    width: 100%;
+    margin-top: 10px;
+}
+
+textarea {
+    width: 90vw;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #44475a; /* Darker border */
+    background-color: #2d2d44; /* Dark input field background */
+    color: #c9d1d9; /* Light text */
+    resize: none;
+    height: 80px;
+    font-size: 16px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff; /* Bright border on focus */
+}
+
+/* Buttons */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.get-response-button, .clear-button {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.get-response-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.get-response-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.clear-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.clear-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Loader */
+.loader-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.loader-container .dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.loader-container .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #007bff; /* Bright loader dots */
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.loader-container p {
+    font-size: 14px;
+    color: #c9d1d9; /* Light text */
+}
+
+/* Responsive Styles for larger screens */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .chat-history {
+        width: 55vw;
+        max-height: 500px;
+    }
+
+    textarea {
+        width: 55vw;
+        font-size: 18px;
+    }
+
+    .get-response-button, .clear-button {
+        font-size: 18px;
+    }
+}
+
 </style>
 <body>
     <div class="container">
@@ -56,6 +254,64 @@
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            const loaderContainer = document.getElementById("loader-container");
+            const chatHistory = document.getElementById('chat-history');
+            const promptInput = document.getElementById('prompt-input');
+
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();  // Prevent the form from refreshing the page
+                const userMessage = promptInput.value.trim();
+                
+                if (userMessage === "") return;
+
+                // Show the user's message in chat
+                const userEntry = document.createElement('div');
+                userEntry.classList.add('chat-entry', 'user');
+                userEntry.innerHTML = `<div class="bubble"><strong>You:</strong><p>${userMessage}</p></div>`;
+                chatHistory.appendChild(userEntry);
+
+                // Clear the input field
+                promptInput.value = '';
+
+                // Show loader
+                loaderContainer.style.visibility = "visible"; 
+
+                // Send the user's message to the server
+                fetch("/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({ "prompt": userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    loaderContainer.style.visibility = "hidden"; // Hide loader
+                    
+                    // Update chat history with the server's response
+                    const assistantEntry = document.createElement('div');
+                    assistantEntry.classList.add('chat-entry', 'assistant');
+                    assistantEntry.innerHTML = `<div class="bubble"><strong>Homework Tutor:</strong><p>${data.response}</p></div>`;
+                    chatHistory.appendChild(assistantEntry);
+                    
+                    // Scroll to the bottom of the chat
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                })
+                .catch(error => {
+                    loaderContainer.style.visibility = "hidden"; // Hide loader in case of error
+                    console.error('Error:', error);
+                });
+            });
+
+            // Clear button
+            document.getElementById('clear-button').addEventListener('click', function() {
+                chatHistory.innerHTML = '';  // Clear chat history
+            });
+        });
+    </script>
 </body>
 
 <footer class="footer">
